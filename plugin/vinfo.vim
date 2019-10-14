@@ -5,7 +5,7 @@
 " corressponding info file will be opened.
 function! Info ()
   let src_num_lines = line('$')
-  " let src_win_id = win_getid()
+  let src_win_id = win_getid()
   set nowrap
 
   if len(g:VINFO_FILE_PREFIX) > 0
@@ -29,7 +29,7 @@ function! Info ()
   " let vinfofile=expand("%:p:h") . "/" . ".vinfo." . expand("%") . ".vinfo"
 
   execute "vertical rightbelow split" vinfofile
-  " let dest_win_id = win_getid()
+  let dest_win_id = win_getid()
   let dest_num_lines = line('$')
 
   if src_num_lines > dest_num_lines
@@ -39,4 +39,16 @@ function! Info ()
       let num_new_lines = num_new_lines - 1
     endwhile
   endif
+
+  " Set scrollbind in dest
+  set scrollbind
+
+  " Switch to src window and then scroll to 1
+  call win_gotoid(src_win_id)
+  set scrollbind
+
+  syncbind
+
 endfunction
+
+nmap <C-i> :call Info()<cr>
