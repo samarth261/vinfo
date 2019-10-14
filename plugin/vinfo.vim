@@ -40,8 +40,11 @@ function! Info ()
     endwhile
   endif
 
-  " Set scrollbind in dest
+  " Set scrollbind in destination
   set scrollbind
+  set textwidth=0
+  set wrap linebreak nolist
+
 
   " Switch to src window and then scroll to 1
   call win_gotoid(src_win_id)
